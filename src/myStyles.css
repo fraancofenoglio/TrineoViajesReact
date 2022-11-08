@@ -433,6 +433,7 @@ option {
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 1);
+
 }
 
 .card:hover {
@@ -888,7 +889,7 @@ th:nth-child(5), th:nth-child(1){
 }
 
 .modal-container {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -899,6 +900,11 @@ th:nth-child(5), th:nth-child(1){
     top: 0;
     left: 0;
     pointer-events: auto;
+
+}
+
+.modal-open {
+    display: flex;
 }
 
 .modal-message{

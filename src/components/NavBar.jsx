@@ -2,11 +2,13 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { NavLink} from 'react-router-dom'
 import Cart from './Cart'
+import Modal from './Modal';
 
 function NavBar({hamb, setHamb}) {
     const currentUser = useSelector(state => state.user.currentUser);
 
     const [click, setClick] = useState(false);
+    const [open, setOpen] = useState(false);
 
   return (
     <nav className="nav-desktop">
@@ -56,9 +58,14 @@ function NavBar({hamb, setHamb}) {
                     src="../assets/cart.png" alt=""
                     />
 
-                    <Cart click={click} setClick={setClick}></Cart>
+                    <Cart setOpen={setOpen} click={click} setClick={setClick}></Cart>
  
                 </button>
+
+                <Modal open={open} setOpen={setOpen}>
+                    <h3>No hay artículos en el carrito.</h3>
+                </Modal>
+
             </div>
         </div>
     </nav>

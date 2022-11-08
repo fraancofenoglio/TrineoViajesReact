@@ -20,7 +20,7 @@ function MainRoutes() {
         {/* <Route path='/account' element={<Account/>}   /> */}
         <Route path='/register' element={ currentUser === null ? <Register/> : <Navigate to="/account"/>} />
         <Route path='/login' element={ currentUser === null ? <Login/> : <Navigate to="/account"/>} />
-        <Route path='/forgot-password' element={<ForgotPassword/>}/>
+        <Route path='/forgot-password' element={currentUser === null ? <ForgotPassword/> : <Navigate to="/account"/>}/>
         <Route path='/checkout' element={ currentUser !== null ? <Checkout/> : <Navigate to="/login"/>}/>
 
         <Route path='/account' element={

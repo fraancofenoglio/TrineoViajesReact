@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import trip from '../data/data';
+import Modal from './Modal';
 import TripCard from './TripCard';
-// import {locationFilter, transportFilter, priceMaxFilter, priceMinFilter} from '../utils/filters'
 
 function SearchSection() {
 
@@ -10,8 +10,11 @@ function SearchSection() {
     const [transport, setTransport] = useState();
     const [priceMax, setPriceMax] = useState();
     const [priceMin, setPriceMin] = useState();
-
+    const [open, setOpen] = useState(false);
+    const [selectedCity, setSelectedCity] = useState("");
+    
     const handleSubmit = (e) => {
+        
         e.preventDefault()
         setResult(trip.filter(locationFilter).filter(transportFilter).filter(priceMaxFilter).filter(priceMinFilter));
     }
@@ -97,14 +100,26 @@ function SearchSection() {
 
         <div className="search-trip">
             {result.length ? result.map( (tr, i) => (
-                <TripCard travel={tr} key={i}/>
+                
+                <TripCard setOpen={setOpen} setSelectedCity={setSelectedCity} travel={tr} key={i}/>
+           
                  
-            )) : <div>
-                    <p>No hay viajes que coincidan con su búsqueda</p>
+            )) :
+            <>
+                <div style={{width: "90vw", margin: "0 auto", position: "absolute"}}>
+                    <p style={{width: "50vw", margin: "0 auto"}}>No hay viajes que coincidan con su búsqueda.</p>
                 </div>
+            </>
             
             }
         </div>
+
+        <>
+            <Modal open={open} setOpen={setOpen}>
+                <h3>{selectedCity}</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae beatae numquam officiis inventore temporibus, velit dolor ipsum voluptatibus incidunt sequi, mollitia aliquam voluptates.</p>
+            </Modal>
+        </>
 
     </section>
   )

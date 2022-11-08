@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FooterSection from "../components/FooterSection";
+import Modal from "../components/Modal";
 import {registerUser} from "../firebase/firebaseUtils";
 
 function Register() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [open, setOpen] = useState(false);
 
     const navigate = useNavigate()
 
@@ -15,8 +17,7 @@ function Register() {
 
         try {
             await registerUser(email, password);
-            alert("Usuario Registrado");
-            navigate("/login");
+            setOpen(true);
 
         } catch (error) {
             console.log(error)
@@ -75,6 +76,12 @@ function Register() {
 
             </section>
         </div>
+
+        <Modal open={open} setOpen={setOpen} fn={ () => navigate("/login")}>
+            <h3>¡Felicitaciones!</h3>
+            <p>Te registraste exitosamente, ya podés iniciar sesión.</p>
+        </Modal>
+
         <FooterSection></FooterSection>
     </>
   )

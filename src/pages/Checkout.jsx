@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {remove_all_from_cart} from "../actions/cartActions";
 import FooterSection from "../components/FooterSection";
+import Modal from "../components/Modal";
 
 function Checkout() {
+
+    const [open, setOpen] = useState(false);
 
     const state = useSelector(state => state.cart.cartItems);
     const dispatch = useDispatch();
@@ -13,8 +17,8 @@ function Checkout() {
 
     const handleClick = () => {
 
+        setOpen(true);
         dispatch(remove_all_from_cart())
-
 
     }
 
@@ -36,6 +40,11 @@ function Checkout() {
                 <button className="generic-button" onClick={handleClick}>Comprar</button>
             </div>
         </div>
+
+        <Modal open={open} setOpen={setOpen}>
+            <h3>¡Felicitaciones!</h3>
+            <p>Compra realizada con éxito. Recibirás los detalles por mail.</p>
+        </Modal>
 
         <FooterSection></FooterSection>
     </>

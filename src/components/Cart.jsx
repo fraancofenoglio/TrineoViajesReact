@@ -2,12 +2,8 @@ import CartButton from "./buttons/CartButton";
 import CartTable from "./CartTable";
 import {remove_all_from_cart} from "../actions/cartActions"
 
+function Cart({click, setClick, setOpen}) {
 
-function Cart({click, setClick}) {
-
-  function fn () {
-    alert("Compra realizada")
-  }
   
 
   return (
@@ -25,10 +21,11 @@ function Cart({click, setClick}) {
 
         <div className="cart-buttons">
 
-            <CartButton click={click} setClick={setClick} action={remove_all_from_cart} id={"empty-cart"} text={"Vaciar Carrito"}></CartButton>
+            <CartButton click={click} setClick={setClick} setOpen={setOpen} action={remove_all_from_cart} id={"empty-cart"} text={"Vaciar Carrito"}></CartButton>
                             
-            <CartButton click={click} setClick={setClick} id={"buy-cart"} fn={fn} action={remove_all_from_cart} text="Comprar"></CartButton>
+            <CartButton click={click} setClick={setClick} setOpen={setOpen} id={"buy-cart"} action={remove_all_from_cart} text="Comprar"></CartButton>
         </div>
+
 
     </div>
   )
