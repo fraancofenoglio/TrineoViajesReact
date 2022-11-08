@@ -6,7 +6,7 @@ import Cart from './Cart'
 function NavBar({hamb, setHamb}) {
     const currentUser = useSelector(state => state.user.currentUser);
 
-    const [click, setClick] = useState(false)
+    const [click, setClick] = useState(false);
 
   return (
     <nav className="nav-desktop">

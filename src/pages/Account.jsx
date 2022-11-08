@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { setUser } from "../actions/user-actions";
 import Button from "../components/buttons/Button";
 import FooterSection from "../components/FooterSection"
+import Orders from "../components/Orders";
 import { signOutUser } from "../firebase/firebaseUtils";
 
 
@@ -34,9 +35,13 @@ function Account() {
         <img style={{borderRadius: "50%"}} src={currentUser?.photoURL || "./assets/user-circle-regular-36.png"} alt="user"/>
         </div>
 
-        <div>
+        <Orders></Orders>
+
+        <div className="logout">
+
             <h3>Cerrar Sesión:</h3>
             <Button text={"Cerrar Sesión"} action={handleLogout}></Button>
+            
         </div>
     
         

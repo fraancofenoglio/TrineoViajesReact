@@ -15,6 +15,8 @@ function Register() {
 
         try {
             await registerUser(email, password);
+            alert("Usuario Registrado");
+            navigate("/login");
 
         } catch (error) {
             console.log(error)

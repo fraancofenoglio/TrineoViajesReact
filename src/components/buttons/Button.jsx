@@ -3,7 +3,7 @@ import React from 'react'
 function Button({text, action}) {
 
   return (
-    <button onClick={ () => action()} className='generic-button'>
+    <button onClick={ (e) => action(e)} className='generic-button'>
         {text}
     </button>
   )

@@ -1,18 +1,15 @@
-// import { onAuthStateChanged } from "firebase/auth";
-// import { useEffect } from "react";
+
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { setUser } from "../actions/user-actions";
 import FooterSection from "../components/FooterSection";
-// import { auth } from "../firebase/firebaseConfig";
 import { loginUser, signInWithGoogle } from "../firebase/firebaseUtils";
 
 function Login() {
 
     const dispatch = useDispatch();
-    const currentUser = useSelector(state => state.user.currentUser);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -21,41 +18,18 @@ function Login() {
     const handleSubmit = async (e) => {
 
         e.preventDefault();
-
         
         try {
-            await loginUser(email, password);
-            navigate("/home")
-            console.log("usuario logueado", currentUser);
+            const result = await loginUser(email, password);
+            dispatch(setUser(result))
+            navigate("/account")
 
         } catch (error) {
             console.log(error.code)
         }
     }
+     
 
-
-    // const handleLogout = async () => {
-    //     try {
-    //         await signOutUser();
-    //         dispatch(setUser(null))
-    //         console.log("usuario deslogueado");
-
-    //     } catch (error) {
-    //         console.log(error.code)
-    //     }
-    // }
-
-
-    // useEffect(() =>{
-    //     const unsuscribe = onAuthStateChanged(auth, user => {
-            
-    //         dispatch(setUser(user))
-
-    //     })
-    //     return unsuscribe();
-    // }, [dispatch]);
-
-    // console.log(currentUser)
   return (
     <>
         <div className="main-account">
@@ -83,6 +57,7 @@ function Login() {
                             type="password" id="password-input-login" placeholder="Contraseña" 
                             value={password} onChange={e => setPassword(e.target.value)}
                             />
+                            <Link to="/forgot-password">¿Olvidaste la contraseña?</Link>
 
                         </div>
 
@@ -96,8 +71,9 @@ function Login() {
                         style={{display: "flex", flexDirection: "row", justifyContent: "center"}}
                         onClick={async () => {
                             const result = await signInWithGoogle();
+                            console.log(result)
                             dispatch(setUser(result.user))
-                            navigate("/home")
+                            navigate("/account")
                             
                         }}
                         onMouseEnter={() => setimg(!img)}

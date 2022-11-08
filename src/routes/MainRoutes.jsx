@@ -4,19 +4,26 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import ProtectedRoute from "../components/ProtectedRoute"
 import Register from '../pages/Register';
+import ForgotPassword from '../pages/ForgotPassword';
+import Checkout from '../pages/Checkout';
+import { useSelector } from 'react-redux';
 // import Prueba from '../pages/Prueba';
 // import PruebaLogin from '../pages/PruebaLogin';
 
 function MainRoutes() {
+
+  const currentUser = useSelector(state => state.user.currentUser);
   return (
     <>
-    <Routes>
+      <Routes>
         <Route path="/home" element={<Home/>}   />
-        <Route path='/account' element={<Account/>}   />
-        <Route path='/register' element={<Register/>} />
-        <Route path='/login' element={<Login/>} />
+        {/* <Route path='/account' element={<Account/>}   /> */}
+        <Route path='/register' element={ currentUser === null ? <Register/> : <Navigate to="/account"/>} />
+        <Route path='/login' element={ currentUser === null ? <Login/> : <Navigate to="/account"/>} />
+        <Route path='/forgot-password' element={<ForgotPassword/>}/>
+        <Route path='/checkout' element={ currentUser !== null ? <Checkout/> : <Navigate to="/login"/>}/>
 
-        <Route path='/prueba' element={
+        <Route path='/account' element={
 
           <ProtectedRoute redirectTo={"/login"}>
             <Account/>
@@ -27,7 +34,7 @@ function MainRoutes() {
         <Route path='/' element={<Navigate to="/home"/>}></Route>
 
 
-    </Routes>
+      </Routes>
     
     </>
   )

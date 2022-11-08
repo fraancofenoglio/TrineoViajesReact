@@ -9,7 +9,7 @@ import {setUser} from "./actions/user-actions";
 import {auth} from "./firebase/firebaseConfig";
 import { onAuthStateChanged } from 'firebase/auth';
 // import { onSnapshot } from 'firebase/firestore';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // function onAuthStateChange(cb, action) {
 
@@ -30,30 +30,34 @@ import { useDispatch } from 'react-redux';
 // }
 
 
- 
+
+
 function App() {
 
-  const [hamb, setHamb] = useState(false);
-
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   const unsuscribe = onAuthStateChange(dispatch, setUser);
-  //   return () => unsuscribe();
-  // }, [dispatch]);
-
+  const currentUser = useSelector(state => state.user.currentUser);
   
-  useEffect(() =>{
-    const unsuscribe = onAuthStateChanged(auth, user => {
+  const [hamb, setHamb] = useState(false);
+  
+  const dispatch = useDispatch();
+  
+  // useEffect(() => {
+    //   const unsuscribe = onAuthStateChange(dispatch, setUser);
+    //   return () => unsuscribe();
+    // }, [dispatch]);
+    
+    
+    useEffect(() =>{
+      
+      const unsuscribe = onAuthStateChanged(auth, user => {
         
         dispatch(setUser(user))
-
-    })
-    return unsuscribe();
-  }, [dispatch]);
-
-  return (
-
+        
+      })
+      return unsuscribe();
+    }, [dispatch, currentUser]);
+    
+    return (
+      
     <>
       <BrowserRouter>
 
