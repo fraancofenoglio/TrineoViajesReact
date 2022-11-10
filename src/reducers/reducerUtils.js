@@ -23,10 +23,6 @@ export const removeItem = (cartItems, id) => {
 
 }
 
-export const removeAll = () => {
-    console.log("chau");
-}
-
 
 
 

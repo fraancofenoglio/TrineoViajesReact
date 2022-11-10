@@ -18,7 +18,6 @@ function Account() {
             await signOutUser();
             dispatch(setUser(null));
             navigate("/login")
-            console.log("usuario deslogueado");
 
         } catch (error) {
             console.log(error.code);
@@ -31,19 +30,13 @@ function Account() {
 
         <div className="user-display">
 
-        <h1>¡Bienvenido,  {currentUser?.displayName || currentUser?.email}!</h1>
-        <img style={{borderRadius: "50%"}} src={currentUser?.photoURL || "./assets/user-circle-regular-36.png"} alt="user"/>
+            <h1>¡Bienvenid@,  {currentUser?.displayName || currentUser?.email}!</h1>
+            <img style={{borderRadius: "50%"}} src={currentUser?.photoURL || "./assets/user-circle-regular-36.png"} alt="user"/>
+            <Button text={"Cerrar Sesión"} action={handleLogout}></Button>
+
         </div>
 
         <Orders></Orders>
-
-        <div className="logout">
-
-            <h3>Cerrar Sesión:</h3>
-            <Button text={"Cerrar Sesión"} action={handleLogout}></Button>
-            
-        </div>
-    
         
         <FooterSection></FooterSection>
     </>

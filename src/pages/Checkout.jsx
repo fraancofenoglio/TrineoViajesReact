@@ -1,25 +1,33 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {remove_all_from_cart} from "../actions/cartActions";
 import FooterSection from "../components/FooterSection";
 import Modal from "../components/Modal";
+import { useFirestore } from "../hooks/useFirebase";
 
 function Checkout() {
 
     const [open, setOpen] = useState(false);
 
+    const {addData} = useFirestore();
+    const navigate = useNavigate();
+
     const state = useSelector(state => state.cart.cartItems);
     const dispatch = useDispatch();
 
     const quant = state.reduce((acc, cart) => {
-        return acc + (cart.price * cart.quantity)
+        return acc + (cart.price * cart.quantity);
     }, 0);
 
     const handleClick = () => {
 
-        setOpen(true);
-        dispatch(remove_all_from_cart())
-
+        if (state.length) {
+            
+            addData(quant, state);
+            dispatch(remove_all_from_cart());
+            setOpen(true);
+        }
     }
 
   return (
@@ -41,7 +49,7 @@ function Checkout() {
             </div>
         </div>
 
-        <Modal open={open} setOpen={setOpen}>
+        <Modal open={open} setOpen={setOpen} fn={() => navigate("/account")}>
             <h3>¡Felicitaciones!</h3>
             <p>Compra realizada con éxito. Recibirás los detalles por mail.</p>
         </Modal>

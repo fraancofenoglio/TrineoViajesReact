@@ -7,8 +7,6 @@ import Register from '../pages/Register';
 import ForgotPassword from '../pages/ForgotPassword';
 import Checkout from '../pages/Checkout';
 import { useSelector } from 'react-redux';
-// import Prueba from '../pages/Prueba';
-// import PruebaLogin from '../pages/PruebaLogin';
 
 function MainRoutes() {
 
@@ -16,8 +14,8 @@ function MainRoutes() {
   return (
     <>
       <Routes>
+
         <Route path="/home" element={<Home/>}   />
-        {/* <Route path='/account' element={<Account/>}   /> */}
         <Route path='/register' element={ currentUser === null ? <Register/> : <Navigate to="/account"/>} />
         <Route path='/login' element={ currentUser === null ? <Login/> : <Navigate to="/account"/>} />
         <Route path='/forgot-password' element={currentUser === null ? <ForgotPassword/> : <Navigate to="/account"/>}/>
@@ -33,9 +31,7 @@ function MainRoutes() {
 
         <Route path='/' element={<Navigate to="/home"/>}></Route>
 
-
       </Routes>
-    
     </>
   )
 }

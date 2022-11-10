@@ -1,11 +1,10 @@
-import { useState } from 'react'
-import { useSelector } from 'react-redux';
-import { NavLink} from 'react-router-dom'
-import Cart from './Cart'
+import { useState } from 'react';
+import { NavLink} from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
+import Cart from './Cart';
 import Modal from './Modal';
 
 function NavBar({hamb, setHamb}) {
-    const currentUser = useSelector(state => state.user.currentUser);
 
     const [click, setClick] = useState(false);
     const [open, setOpen] = useState(false);
@@ -26,16 +25,15 @@ function NavBar({hamb, setHamb}) {
 
             <div className="navigation-desktop">
                 <div className="trip">
-                    <NavLink to="/home#show-trip">
+                    <HashLink smooth to="/home#show-trip" >
                         VIAJES
-                    </NavLink>
+                    </HashLink>
                 </div>
                 
                 <div className="login">
                     <NavLink to="/account">
                         MI CUENTA
                     </NavLink>
-                    {console.log(currentUser)}
                 </div>
             </div>
             
