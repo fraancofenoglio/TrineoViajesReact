@@ -6,7 +6,6 @@ const Orders = () => {
   const {data, getData, loading} = useFirestore();
 
   useEffect(() => {
-    console.log("getData");
     getData();
   }, []);
 

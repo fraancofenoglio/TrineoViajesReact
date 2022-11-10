@@ -2,25 +2,40 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FooterSection from "../components/FooterSection";
 import Modal from "../components/Modal";
-import {registerUser} from "../firebase/firebaseUtils";
+import {registerUser, modalMessages, modalTitles} from "../firebase/firebaseUtils";
 
 function Register() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [open, setOpen] = useState(false);
-
-    const navigate = useNavigate()
+    const [message, setMessage] = useState();
+    const [title, setTitle] = useState();
+    const [fn, setFn] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = async(e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         try {
             await registerUser(email, password);
+            setTitle(modalTitles.congrats);
+            setMessage(modalMessages.succesfulRegister);
             setOpen(true);
+            setFn(true);
 
         } catch (error) {
-            console.log(error)
+            if (error.code === "auth/weak-password") {
+                
+                setTitle(modalTitles.ups);
+                setMessage(modalMessages.weakPassword);
+                setOpen(true);
+
+            } else if (error.code === "auth/email-already-in-use"){
+                setTitle(modalTitles.ups);
+                setMessage(modalMessages.emailInUSe);
+                setOpen(true);
+            }
         }
     }
 
@@ -77,9 +92,9 @@ function Register() {
             </section>
         </div>
 
-        <Modal open={open} setOpen={setOpen} fn={ () => navigate("/login")}>
-            <h3>¡Felicitaciones!</h3>
-            <p>Te registraste exitosamente, ya podés iniciar sesión.</p>
+        <Modal open={open} setOpen={setOpen} login={fn}>
+            <h3>{title}</h3>
+            <p>{message}</p>
         </Modal>
 
         <FooterSection></FooterSection>

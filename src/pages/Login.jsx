@@ -4,7 +4,8 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setUser } from "../actions/user-actions";
 import FooterSection from "../components/FooterSection";
-import { loginUser, signInWithGoogle } from "../firebase/firebaseUtils";
+import Modal from "../components/Modal";
+import { loginUser, signInWithGoogle, modalMessages, modalTitles } from "../firebase/firebaseUtils";
 
 function Login() {
 
@@ -14,6 +15,9 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [img, setimg] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState();
+    const [title, setTitle] = useState();
 
     const handleSubmit = async (e) => {
 
@@ -21,11 +25,20 @@ function Login() {
         
         try {
             const result = await loginUser(email, password);
-            dispatch(setUser(result))
-            navigate("/account")
+            dispatch(setUser(result));
+            navigate("/account");
 
         } catch (error) {
-            console.log(error.code)
+            if (error.code === "auth/user-not-found") {
+
+                setTitle(modalTitles.ups);
+                setMessage(modalMessages.userNotFound);
+                setOpen(true);
+            }else if (error.code === "auth/wrong-password"){
+                setTitle(modalTitles.ups);
+                setMessage(modalMessages.wrongPassword);
+                setOpen(true);
+            }
         }
     }
      
@@ -71,9 +84,8 @@ function Login() {
                         style={{display: "flex", flexDirection: "row", justifyContent: "center"}}
                         onClick={async () => {
                             const result = await signInWithGoogle();
-                            console.log(result)
-                            dispatch(setUser(result.user))
-                            navigate("/account")
+                            dispatch(setUser(result.user));
+                            navigate("/account");
                             
                         }}
                         onMouseEnter={() => setimg(!img)}
@@ -90,6 +102,11 @@ function Login() {
 
             </section>
         </div>
+        <Modal open={open} setOpen={setOpen}>
+            <h3>{title}</h3>
+            <p>{message}</p>
+        </Modal>
+
         <FooterSection></FooterSection>
     </>
   )

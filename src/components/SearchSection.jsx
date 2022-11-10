@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import trip from '../data/data';
+import { modalMessages } from '../firebase/firebaseUtils';
 import Modal from './Modal';
 import TripCard from './TripCard';
 
@@ -117,7 +118,7 @@ function SearchSection() {
         <>
             <Modal open={open} setOpen={setOpen}>
                 <h3>{selectedCity}</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae beatae numquam officiis inventore temporibus, velit dolor ipsum voluptatibus incidunt sequi, mollitia aliquam voluptates.</p>
+                <p>{modalMessages.lorem}</p>
             </Modal>
         </>
 

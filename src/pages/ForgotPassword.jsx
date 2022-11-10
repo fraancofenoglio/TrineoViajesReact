@@ -2,13 +2,13 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import Button from "../components/buttons/Button";
 import Modal from "../components/Modal";
-import { resetPassword } from "../firebase/firebaseUtils";
+import { resetPassword, modalMessages, modalTitles } from "../firebase/firebaseUtils";
 
 function ForgotPassword() {
     const [email, setEmail] = useState("");
     const [open, setOpen] = useState(false);
-    const [message, setMessage] = useState("");
-    const [title, setTitle] = useState("");
+    const [message, setMessage] = useState();
+    const [title, setTitle] = useState();
 
     const navigate = useNavigate()
 
@@ -16,17 +16,16 @@ function ForgotPassword() {
         e.preventDefault();
         try {
             await resetPassword(email);
-            setTitle("¡Listo!");
-            setMessage("Te enviamos un mail al correo indicado para recuperar tu contraseña.")
-            setOpen(true)
+            setTitle(modalTitles.ok);
+            setMessage(modalMessages.resetSent);
+            setOpen(true);
             
         } catch (error) {
             if (error.code === "auth/user-not-found") {
-                setTitle("¡Ups!");
-                setMessage("Usuario no encontrado, revise el correo ingresado.");
+                setTitle(modalTitles.ups);
+                setMessage(modalMessages.forgotPassword);
                 setOpen(true);
             }
-            console.log(error.code)
         }
     }
 
@@ -41,8 +40,8 @@ function ForgotPassword() {
 
         </div>
         <Modal open={open} setOpen={setOpen} fn={ () => {
-            if (title === "¡Listo!") {
-                navigate("/login")
+            if (title === modalTitles.ok) {
+                navigate("/login");
             }
         }}>
             <h3>{title}</h3>

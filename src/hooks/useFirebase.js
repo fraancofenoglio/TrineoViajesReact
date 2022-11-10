@@ -10,6 +10,7 @@ export const useFirestore = () => {
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState();
 
     const getData = async () => {
         try {
@@ -20,7 +21,7 @@ export const useFirestore = () => {
             const dataDB = querySnapshot.docs.map((doc) => doc.data());
             setData(dataDB);
         } catch (error) {
-            console.log(error);
+            setError(error.code);
 
         } finally {
             setLoading(false);
@@ -45,14 +46,14 @@ export const useFirestore = () => {
       
             };
 
-            const docRef = doc(db, "reservas", newDoc.resid); //tiene que ser string, voy a tener que usar nanoid
+            const docRef = doc(db, "reservas", newDoc.resid); //tiene que ser string
 
             await setDoc(docRef, newDoc);
 
             setData([...data, newDoc]);
 
         } catch (error) {
-            console.log(error);
+            setError(error.code);
         } finally {
             setLoading(false);
         }
@@ -62,7 +63,8 @@ export const useFirestore = () => {
         data,
         getData,
         loading,
-        addData
+        addData,
+        error
     }
 
 }

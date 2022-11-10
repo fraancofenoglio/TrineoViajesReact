@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { NavLink} from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
+import { modalMessages } from '../firebase/firebaseUtils';
 import Cart from './Cart';
 import Modal from './Modal';
 
@@ -61,7 +62,7 @@ function NavBar({hamb, setHamb}) {
                 </button>
 
                 <Modal open={open} setOpen={setOpen}>
-                    <h3>No hay artículos en el carrito.</h3>
+                    <h3>{modalMessages.emptyCart}</h3>
                 </Modal>
 
             </div>

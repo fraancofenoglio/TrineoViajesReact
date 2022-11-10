@@ -17,7 +17,7 @@ function Account() {
         try {
             await signOutUser();
             dispatch(setUser(null));
-            navigate("/login")
+            navigate("/login");
 
         } catch (error) {
             console.log(error.code);

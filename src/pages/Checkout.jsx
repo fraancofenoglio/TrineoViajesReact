@@ -5,6 +5,7 @@ import {remove_all_from_cart} from "../actions/cartActions";
 import FooterSection from "../components/FooterSection";
 import Modal from "../components/Modal";
 import { useFirestore } from "../hooks/useFirebase";
+import {modalMessages, modalTitles} from '../firebase/firebaseUtils'
 
 function Checkout() {
 
@@ -42,7 +43,7 @@ function Checkout() {
                         <h3>${trip.price * trip.quantity}</h3>
                         <h3>Cantidad: {trip.quantity}</h3>
                     </div>
-                )) : <h2>No hay articulos</h2>}
+                )) : <h2>No hay artículos</h2>}
 
                 <h2>Total: ${quant}</h2>
                 <button className="generic-button" onClick={handleClick}>Comprar</button>
@@ -50,8 +51,8 @@ function Checkout() {
         </div>
 
         <Modal open={open} setOpen={setOpen} fn={() => navigate("/account")}>
-            <h3>¡Felicitaciones!</h3>
-            <p>Compra realizada con éxito. Recibirás los detalles por mail.</p>
+            <h3>{modalTitles.congrats}</h3>
+            <p>{modalMessages.succesfulPurchase}</p>
         </Modal>
 
         <FooterSection></FooterSection>
