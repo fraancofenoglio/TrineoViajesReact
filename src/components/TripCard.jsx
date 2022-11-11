@@ -1,7 +1,8 @@
 import { useDispatch } from "react-redux";
 import {add_to_cart} from "../actions/cartActions";
+import { modalMessages } from '../firebase/firebaseUtils';
 
-function TripCard({travel, setOpen, setSelectedCity}) {
+function TripCard({travel, setOpen, setMessage, setTitle}) {
     let {title, city, img, days, nights, price, icons, quantity, id} = travel;
 
     const dispatch = useDispatch();
@@ -26,7 +27,9 @@ function TripCard({travel, setOpen, setSelectedCity}) {
             </div>
             <h3>${price}</h3>
             <button onClick={() => {
-                setSelectedCity(city);
+                // setSelectedCity(city);
+                setTitle(city);
+                setMessage(modalMessages.lorem)
                 setOpen(true);
             }} className="infoButton">+ info</button>
 

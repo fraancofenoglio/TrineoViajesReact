@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import trip from '../data/data';
-import { modalMessages } from '../firebase/firebaseUtils';
 import Modal from './Modal';
 import TripCard from './TripCard';
 
@@ -12,7 +11,8 @@ function SearchSection() {
     const [priceMax, setPriceMax] = useState();
     const [priceMin, setPriceMin] = useState();
     const [open, setOpen] = useState(false);
-    const [selectedCity, setSelectedCity] = useState("");
+    const [message, setMessage] = useState();
+    const [title, setTitle] = useState();
     
     const handleSubmit = (e) => {
         
@@ -102,25 +102,24 @@ function SearchSection() {
         <div className="search-trip">
             {result.length ? result.map( (tr, i) => (
                 
-                <TripCard setOpen={setOpen} setSelectedCity={setSelectedCity} travel={tr} key={i}/>
-           
+                <TripCard setTitle={setTitle} setMessage={setMessage} setOpen={setOpen} travel={tr} key={i}/>
                  
             )) :
             <>
-                <div style={{width: "90vw", margin: "0 auto", position: "absolute"}}>
+                <div style={{width: "90vw", margin: "0 auto"}}>
                     <p style={{width: "50vw", margin: "0 auto"}}>No hay viajes que coincidan con su búsqueda.</p>
                 </div>
             </>
             
             }
-        </div>
-
         <>
             <Modal open={open} setOpen={setOpen}>
-                <h3>{selectedCity}</h3>
-                <p>{modalMessages.lorem}</p>
+                <h3>{title}</h3>
+                <p>{message}</p>
             </Modal>
         </>
+        </div>
+
 
     </section>
   )

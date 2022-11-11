@@ -5,7 +5,11 @@ const Modal = ({children, open, setOpen, fn, login}) => {
   const navigate = useNavigate();
 
   return (
-    <div className={`modal-container ${open && "modal-open"}`} onClick={() => setOpen(false)}>
+    <div className={`modal-container ${open && "modal-open"}`} onClick={() => {
+      setOpen(false);
+      fn && fn();
+      login && navigate("/login");
+    }}>
         
         <div className="modal-message" onClick={(e) => e.stopPropagation()}>
 

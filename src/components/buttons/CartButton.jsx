@@ -13,14 +13,12 @@ function CartButton({text, id, action, click, setClick, setOpen}) {
     setClick(!click);
     e.preventDefault();
 
-
     if (id === "empty-cart" && state.length) {
       
       action && dispatch(action());
     }
 
-
-    if (currentUser !== null && state.length) {
+    if (currentUser !== null && state.length && id === "buy-cart") {
       navigate("/checkout");
       setClick(!click);
 

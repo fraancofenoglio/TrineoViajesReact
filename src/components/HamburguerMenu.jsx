@@ -1,5 +1,7 @@
-import { useState } from "react"
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { HashLink } from 'react-router-hash-link';
+
 function HamburguerMenu({hamb}) {
 
     const [menu, setMenu] = useState(false);
@@ -35,9 +37,9 @@ function HamburguerMenu({hamb}) {
 
                         <li className="list-menu">
 
-                            <Link className="link-list-menu" to="/home">
+                            <HashLink smooth className="link-list-menu" to="/home#show-trip">
                                 VIAJES
-                            </Link>
+                            </HashLink>
 
                         </li>
 
