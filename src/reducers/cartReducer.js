@@ -1,8 +1,9 @@
-import {ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL_FROM_CART} from "../types/cartTypes";
+import {ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL_FROM_CART, TOGGLE_CART} from "../types/cartTypes";
 import {addItem, removeItem} from "./reducerUtils"
 
 const initialState = {
-    cartItems: []
+    cartItems: [],
+    cartOpen: false
 }
 
 const cartReducer = (state = initialState, action) => {
@@ -24,6 +25,11 @@ const cartReducer = (state = initialState, action) => {
 
             return {
                 ...state, cartItems:[]
+            }
+        case TOGGLE_CART: 
+
+            return {
+                ...state, cartOpen: !state.cartOpen
             }
     
         default:

@@ -990,6 +990,23 @@ th:nth-child(5), th:nth-child(1){
     opacity: 1;
 }
 
+.go-up {
+    display: flex;
+    position: fixed;
+    bottom: 40px;
+    right: 30px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 7px;
+}
+
+.go-upi img {
+    width: 45px;
+    height: 45px;
+}
+
 .about-us {
     width: 100vw;
     height: 80vh;
@@ -1072,8 +1089,12 @@ footer {
     display: flex;
     width: 100%;
     justify-content: center;
+    align-items: flex-end;
     font-size: large;
     padding: 10px;
+    border-top: 1px solid #fff;
+    height: 70px;
+
 }
 .dev a {
     margin-left: 2%;

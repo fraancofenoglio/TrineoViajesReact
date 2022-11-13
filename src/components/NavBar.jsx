@@ -1,14 +1,19 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink} from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
+import { toggleCart } from '../actions/cartActions';
 import { modalMessages } from '../firebase/firebaseUtils';
 import Cart from './Cart';
 import Modal from './Modal';
 
 function NavBar({hamb, setHamb}) {
 
-    const [click, setClick] = useState(false);
     const [open, setOpen] = useState(false);
+
+    const dispatch = useDispatch();
+    const toggle = useSelector(state => state.cart.cartOpen);
+    const state = useSelector(state => state.cart.cartItems);
 
   return (
     <nav className="nav-desktop">
@@ -43,26 +48,21 @@ function NavBar({hamb, setHamb}) {
 
                     <img 
                     onClick={(e) => {
-                        e.preventDefault()
-                        setClick(!click)
-                        setHamb(!hamb)
+                        e.preventDefault();
+                        dispatch(toggleCart())
+                        setHamb(!hamb);
                     }}
-                    onMouseOver={(e) => {
-                        e.preventDefault()
-                        setClick(!click)
-                        setHamb(!hamb)
-                    }
-                    }
+
                     style={{width: "25px", height: "25px"}}
                     src="../assets/cart.png" alt=""
                     />
 
-                    <Cart setOpen={setOpen} click={click} setClick={setClick}></Cart>
+                    <Cart setHamb={setHamb} hamb={hamb} setOpen={setOpen} toggle={toggle}></Cart>
  
                 </button>
 
                 <Modal open={open} setOpen={setOpen}>
-                    <h3>{modalMessages.emptyCart}</h3>
+                    <h3>{!state.length ? modalMessages.emptyCart : modalMessages.loginToContinue}</h3>
                 </Modal>
 
             </div>

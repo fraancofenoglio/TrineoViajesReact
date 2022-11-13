@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toggleCart } from "../../actions/cartActions";
 
-function CartButton({text, id, action, click, setClick, setOpen}) {
+function CartButton({text, id, action, setHamb, hamb, setOpen}) {
 
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.user.currentUser);
@@ -10,26 +11,27 @@ function CartButton({text, id, action, click, setClick, setOpen}) {
 
   const handleClick = (e) => {
 
-    setClick(!click);
+    dispatch(toggleCart())
+    setHamb(!hamb)
+
     e.preventDefault();
 
     if (id === "empty-cart" && state.length) {
       
       action && dispatch(action());
+      return
     }
 
     if (currentUser !== null && state.length && id === "buy-cart") {
       navigate("/checkout");
-      setClick(!click);
 
-    } else if(!state.length) {
+    } else if(!state.length ) {
 
       setOpen(true)
 
     } else {
-
       navigate("/login");
-      setClick(!click);
+      setOpen(true);
     }
 
   }
