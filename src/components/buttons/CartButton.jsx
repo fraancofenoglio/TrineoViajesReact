@@ -10,11 +10,11 @@ function CartButton({text, id, action, setHamb, hamb, setOpen}) {
   const navigate = useNavigate();
 
   const handleClick = (e) => {
-
+    
+    e.preventDefault();
     dispatch(toggleCart())
     setHamb(!hamb)
 
-    e.preventDefault();
 
     if (id === "empty-cart" && state.length) {
       
