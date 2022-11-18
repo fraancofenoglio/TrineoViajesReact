@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FooterSection from "../components/FooterSection";
+import LoaderBTN from "../components/LoaderBTN";
 import Modal from "../components/Modal";
 import {registerUser, modalMessages, modalTitles} from "../firebase/firebaseUtils";
 
@@ -13,11 +14,13 @@ function Register() {
     const [title, setTitle] = useState();
     const [fn, setFn] = useState(false);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async(e) => {
         e.preventDefault();
 
         try {
+            setLoading(true)
             await registerUser(email, password);
             setTitle(modalTitles.congrats);
             setMessage(modalMessages.succesfulRegister);
@@ -36,6 +39,8 @@ function Register() {
                 setMessage(modalMessages.emailInUSe);
                 setOpen(true);
             }
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -80,7 +85,7 @@ function Register() {
 
                     </div>
 
-                    <button type="submit">Registrarse</button>
+                    <button type="submit">{ loading ? <LoaderBTN/> : "Registrarse"}</button>
 
                 </form>
 

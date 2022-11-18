@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useFirestore } from '../hooks/useFirebase'
+import Loader from './Loader';
 
 const Orders = () => {
 
@@ -10,7 +11,7 @@ const Orders = () => {
   }, []);
 
   if (loading) {
-    return  <p>Loading data...</p>
+    return  <Loader/>
   }
 
   return (

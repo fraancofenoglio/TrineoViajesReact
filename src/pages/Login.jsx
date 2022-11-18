@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setUser } from "../actions/user-actions";
 import FooterSection from "../components/FooterSection";
+import LoaderBTN from "../components/LoaderBTN";
 import Modal from "../components/Modal";
 import { loginUser, signInWithGoogle, modalMessages, modalTitles } from "../firebase/firebaseUtils";
 
@@ -18,12 +19,14 @@ function Login() {
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState();
     const [title, setTitle] = useState();
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
 
         e.preventDefault();
         
         try {
+            setLoading(true)
             const result = await loginUser(email, password);
             dispatch(setUser(result));
             navigate("/account");
@@ -39,6 +42,8 @@ function Login() {
                 setMessage(modalMessages.wrongPassword);
                 setOpen(true);
             }
+        } finally {
+            setLoading(false)
         }
     }
      
@@ -74,7 +79,7 @@ function Login() {
 
                         </div>
 
-                        <button type="submit">Ingresar</button>
+                        <button type="submit">{loading ? <LoaderBTN/> : "Ingresar"}</button>
                         
                     </form>
 
