@@ -41,7 +41,7 @@ function Checkout() {
                         <img style={{width: "50px", height: "50px"}} src={trip.img} alt={trip.city} />
                         <h3>{trip.city}</h3>
                         <h3>${trip.price * trip.quantity}</h3>
-                        <h3>Cantidad: {trip.quantity}</h3>
+                        <h3>Pasajeros: {trip.quantity}</h3>
                     </div>
                 )) : <h2>No hay artículos</h2>}
 

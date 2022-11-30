@@ -16,7 +16,7 @@ const Orders = () => {
 
   return (
     <div className='orders'>
-      <h1>Mis ordenes</h1>
+      <h1>Mis órdenes</h1>
 
       {data?.map((d, i) => (
         <div className='order-card' key={i}>
@@ -25,7 +25,7 @@ const Orders = () => {
             <div className='order-info' key={e}>
               <h3>● Ciudad: <span>{v.city}</span></h3>
               <h3>● Precio: <span>${v.price}</span></h3>
-              <h3>● Cantidad: <span>{v.quantity}</span></h3>
+              <h3>● Pasajeros: <span>{v.quantity}</span></h3>
             </div>
           ))}
           <h2 className='order-total'>Total: ${d.totalPrice}</h2>

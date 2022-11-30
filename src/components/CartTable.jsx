@@ -20,7 +20,7 @@ function CartTable() {
                     <th></th>
                     <th>Viaje</th>
                     <th>Precio</th>
-                    <th>Cant.</th>
+                    <th>Pasaj.</th>
                     <th></th>
                 </tr>
             </thead>
