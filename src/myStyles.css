@@ -954,6 +954,7 @@ th:nth-child(5), th:nth-child(1){
     top: 0;
     left: 0;
     pointer-events: auto;
+    z-index: 99999;
 
 }
 
